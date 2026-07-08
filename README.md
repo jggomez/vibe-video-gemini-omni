@@ -138,51 +138,6 @@ flowchart TD
 
 ---
 
-## Core Components Breakdown
-
-### 1. Backend Orchestration ([main.py](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/main.py))
-- **FastAPI & ADK Integration**: Wraps ADK's `get_fast_api_app` to expose REST endpoints (`/api/health`, `/api/upload`, `/api/videos/{artifact_name}`) and the WebSocket endpoint (`/ws/studio`).
-- **Dynamic Connection & Context Isolation**: Restricts and isolates standard/live API clients via request context variables (`user_api_client_var` and `user_live_client_var`) using user-supplied session keys.
-- **WebSocket Event Dispatcher Delegation**: Delegates FSM loop boundary detection and WebSocket serialization to `StudioEventDispatcher`.
-
-### 2. WebSocket Event Dispatcher ([backend/event_dispatcher.py](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/backend/event_dispatcher.py))
-- **Orchestration FSM**: Encapsulates iteration FSM boundary detection, resetting loop states when returning to the Creative Director (`creative_director`) from the Prompt Architect or Critic.
-- **Streaming Event Serialization**: Formats and transmits WebSocket events (`agent_thinking`, `agent_done`, `turn_complete`) containing real-time agent output (including `creative_director_review`).
-- **Token & Cost Analytics**: Tracks token consumption for all 4 agents and calculations for total run cost, reporting them to the client.
-
-### 3. Multi-Agent Pipeline ([app/agent.py](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/agent.py))
-The pipeline is managed by an ADK `SequentialAgent` named `vibe_video_pipeline` containing:
-- **Prompt Alignment Loop (`prompt_alignment_loop`)**: A nested `LoopAgent` coordinating `creative_director` and `prompt_architect` (max 3 inner iterations per outer loop).
-- **Video Producer (`video_producer`)**: Runs prompt execution.
-- **Quality Critic (`critic`)**: Performs visual review, triggering escalation upon approval.
-
-### 4. Typed Session State ([app/state_helper.py](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/state_helper.py))
-- **Primitive Obsession Elimination**: Strongly-typed wrappers over the ADK `tool_context.state` dictionary to manage session keys (`last_interaction_id`, `last_artifact_name`, `current_turn`, and `production_result`) reliably.
-
-### 5. Instructions & Prompt Engineering ([app/prompts.py](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/prompts.py))
-- **Dynamic File Loader**: Decouples agent instructions from code. Prompts are read dynamically from clean Markdown files under [`app/instructions/`](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/instructions/):
-  - [`creative_director.md`](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/instructions/creative_director.md): Conceptualization guidelines, subsequent turn alignment checks, and English-only strict output.
-  - [`prompt_architect.md`](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/instructions/prompt_architect.md): 6-Dimension framework, edit-turn preservation, safety sanitization, and director/critic loop feedback rules.
-  - [`video_producer.md`](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/instructions/video_producer.md): Interactions API settings.
-  - [`critic.md`](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/instructions/critic.md): Quality scoring rubrics and content safety handling.
-
-### 6. Custom Tools ([app/tools.py](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/tools.py))
-- **`generate_video`**: Calls `client.interactions.create` with `model="gemini-omni-flash-preview"`, generating initial video binaries and saving them to ADK Artifacts.
-- **`edit_video`**: Performs stateful video editing by chaining `previous_interaction_id` across turns.
-- **`get_video_artifact`**: Inspects and retrieves stored video artifacts from storage.
-
-### 7. Data Schemas ([app/schemas.py](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/app/schemas.py))
-- **`CreativeDirectorReview`**: Pydantic model defining `production_concept`, `director_approved`, and `director_feedback`.
-- **`CriticReview`**: Pydantic model defining structured QA output (`score`, `status`, `summary`, `feedback_points`, and `refinement_suggestions`).
-
-### 8. Reactive Frontend ([frontend/](file:///Users/jggomez/Documents/jggomez/code/vibe-video-gemini/frontend/))
-- **Advanced Player Overlays**: Mute toggle, SVG playback buttons, and volume control.
-- **Agent Output Cards**: Live status dashboard displaying the Creative Director's production concept and approval feedback alongside prompt architectural steps and critic metrics.
-- **Safety Block Canvas**: Shows warnings if content violates safety guidelines.
-- **WebSocket Fault-Tolerance**: Elegant reconnection handling and error logs.
-
----
-
 ## Agent Skills & Tools Reference
 
 ### Agent Skills
