@@ -96,12 +96,12 @@ flowchart LR
     %% Design Themes (High Contrast for GitHub Light/Dark)
     style Start fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:2px
     style Done fill:#238636,stroke:#2ea44f,color:#ffffff,stroke-width:2px
-    style Director fill:#d29922,stroke:#f1e05a,color:#000000,stroke-width:1.5px
-    style Architect fill:#58a6ff,stroke:#388bfd,color:#000000,stroke-width:1.5px
-    style Producer fill:#bc8cff,stroke:#d8b4fe,color:#000000,stroke-width:1.5px
-    style Critic fill:#34d399,stroke:#059669,color:#000000,stroke-width:1.5px
+    style Director fill:#9e6a00,stroke:#d29922,color:#ffffff,stroke-width:1.5px
+    style Architect fill:#0d47a1,stroke:#58a6ff,color:#ffffff,stroke-width:1.5px
+    style Producer fill:#4a148c,stroke:#bc8cff,color:#ffffff,stroke-width:1.5px
+    style Critic fill:#00695c,stroke:#34d399,color:#ffffff,stroke-width:1.5px
     
-    style InnerLoop fill:#0d1117,stroke:#30363d,stroke-width:1px,stroke-dasharray: 4 4
+    style InnerLoop fill:#0f141c,stroke:#30363d,stroke-width:1px,stroke-dasharray: 4 4
 ```
 
 ### 1. Creative Director Agent (`creative_director`)
