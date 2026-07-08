@@ -39,11 +39,11 @@ flowchart TD
         Producer["Video Producer Agent\n(Skills: prompt-architect + omni-flash)"]
         Critic["Quality Critic Agent\n(Structured Schema: CriticReview)"]
         
-        InnerLoop -->|optimized_prompt (Approved/Max Loops)| Producer
+        InnerLoop -->|"optimized_prompt (Approved/Max Loops)"| Producer
         Producer -->|production_result| Critic
         
-        Critic -->|Approved\n(Escalate)| Exit[("Turn Complete")]
-        Critic -->|Needs Refinement\n(critic_review)| InnerLoop
+        Critic -->|"Approved (Escalate)"| Exit[("Turn Complete")]
+        Critic -->|"Needs Refinement (critic_review)"| InnerLoop
     end
 
     WS_Endpoint <-->|Runner.run_async| Pipeline
