@@ -105,7 +105,7 @@ flowchart TD
     %% Styles
     classDef default fill:#0D1117,stroke:#30363d,color:#c9d1d9,stroke-width:1px;
     classDef highlight fill:#161b22,stroke:#58a6ff,color:#58a6ff,stroke-width:1.5px;
-    classDef loopBorder fill:rgba(255,255,255,0.01),stroke:#30363d,stroke-width:1px,stroke-dasharray: 5 5;
+    classDef loopBorder fill:#0d1117,stroke:#30363d,stroke-width:1px,stroke-dasharray: 5 5;
     classDef terminal fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:1.5px;
     
     class InnerLoop,OuterLoop loopBorder;
