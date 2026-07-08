@@ -70,47 +70,38 @@ flowchart TD
 The generation pipeline follows a nested, multi-stage agent loop structure designed to maximize visual quality and prompt fidelity:
 
 ```mermaid
-flowchart TD
-    %% Node Definitions
+flowchart LR
+    %% Nodes
     Start([User Request])
-    
-    subgraph InnerLoop ["Prompt Alignment Loop (Inner Loop, max 3 runs)"]
-        Director["1. Creative Director\n(Establishes concept / reviews alignment)"]
-        Architect["2. Prompt Architect\n(Drafts/refines optimized prompt)"]
-        VerifyPrompt{"Approved by\nDirector?"}
-        
-        Director --> Architect
-        Architect --> VerifyPrompt
-        VerifyPrompt -- "No (Needs refinement)" --> Director
-    end
-
-    Producer["3. Video Producer\n(Generates video via Interaction API)"]
-    
-    subgraph OuterLoop ["Quality Critic Loop (Outer Loop, max 3 turns)"]
-        Critic["4. Quality Critic\n(Evaluates video quality & intent fidelity)"]
-        VerifyQuality{"Approved by\nCritic?"}
-        
-        Critic --> VerifyQuality
-    end
-
+    Director["1. Creative Director<br><i>(Visual Concept)</i>"]
+    Architect["2. Prompt Architect<br><i>(6-Dim Prompt)</i>"]
+    Producer["3. Video Producer<br><i>(Gemini Omni Flash)</i>"]
+    Critic["4. Quality Critic<br><i>(Quality QA)</i>"]
     Done([Turn Complete])
 
-    %% Transitions
+    %% Flow Connections
     Start --> Director
-    VerifyPrompt -- "Yes (or max iterations)" --> Producer
-    Producer --> Critic
-    VerifyQuality -- "No (Needs refinement)" --> InnerLoop
-    VerifyQuality -- "Yes" --> Done
-
-    %% Styles
-    classDef default fill:#0D1117,stroke:#30363d,color:#c9d1d9,stroke-width:1px;
-    classDef highlight fill:#161b22,stroke:#58a6ff,color:#58a6ff,stroke-width:1.5px;
-    classDef loopBorder fill:#0d1117,stroke:#30363d,stroke-width:1px,stroke-dasharray: 5 5;
-    classDef terminal fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:1.5px;
     
-    class InnerLoop,OuterLoop loopBorder;
-    class Director,Architect,Producer,Critic highlight;
-    class Start,Done terminal;
+    subgraph InnerLoop ["Prompt Alignment Loop (max 3 runs)"]
+        Director --> Architect
+        Architect -->|Feedback| Director
+    end
+
+    Architect -->|Approved Prompt| Producer
+    Producer --> Critic
+    
+    Critic -->|Approved Video| Done
+    Critic -.->|Needs Refinement| Director
+
+    %% Design Themes (High Contrast for GitHub Light/Dark)
+    style Start fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:2px
+    style Done fill:#238636,stroke:#2ea44f,color:#ffffff,stroke-width:2px
+    style Director fill:#d29922,stroke:#f1e05a,color:#000000,stroke-width:1.5px
+    style Architect fill:#58a6ff,stroke:#388bfd,color:#000000,stroke-width:1.5px
+    style Producer fill:#bc8cff,stroke:#d8b4fe,color:#000000,stroke-width:1.5px
+    style Critic fill:#34d399,stroke:#059669,color:#000000,stroke-width:1.5px
+    
+    style InnerLoop fill:#0d1117,stroke:#30363d,stroke-width:1px,stroke-dasharray: 4 4
 ```
 
 ### 1. Creative Director Agent (`creative_director`)
