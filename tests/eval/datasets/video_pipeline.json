@@ -1,0 +1,39 @@
+[
+  {
+    "name": "basic_video_generation",
+    "query": "Create a cinematic video of a lone wolf running across a snowy mountain at dusk",
+    "expected_tool_use": [
+      {
+        "tool_name": "generate_video",
+        "tool_input": {
+          "prompt": ""
+        }
+      }
+    ],
+    "reference": "The pipeline should call generate_video with a 6-dimension structured prompt that includes shot framing, style, lighting, location, action, and optionally text rendering."
+  },
+  {
+    "name": "video_edit_preservation",
+    "query": "Change the wolf to a fox but keep everything else the same",
+    "expected_tool_use": [
+      {
+        "tool_name": "edit_video",
+        "tool_input": {
+          "edit_prompt": ""
+        }
+      }
+    ],
+    "reference": "The edit_video tool should be called with a prompt starting with 'Edit this keeping everything else identical.' and only mentioning the fox substitution."
+  },
+  {
+    "name": "critic_evaluates_output",
+    "query": "Generate a short video of a sunset over the ocean",
+    "expected_tool_use": [
+      {
+        "tool_name": "generate_video",
+        "tool_input": {}
+      }
+    ],
+    "reference": "The critic agent should produce a CriticReview with a score, status, summary, feedback_points, and refinement_suggestions."
+  }
+]

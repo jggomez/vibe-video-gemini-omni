@@ -1,0 +1,54 @@
+# System / OS
+.DS_Store
+Thumbs.db
+*.local
+
+# Python environment
+.venv/
+venv/
+ENV/
+env/
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# IDEs and Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*.sublime-project
+*.sublime-workspace
+
+# Testing & Linting
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+nosetests.xml
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Local application data and secrets
+.env
+.env.local
+.env.*.local
+uploads/*
+!uploads/.gitkeep
+.gemini/
+.agent/
+skills-lock.json
+
+# ADK Skills / Agents Directories
+.agents/skills/gemini-omni-prompt-architect/
+.agents/skills/gemini-omni-flash/
+.agents/skills/vibe-video-prompt-engineering/
+.agents/agents/
+# Ignore entire local .agents dir except structures we want to preserve
+.agents/*
+
+# Firebase
+.firebase/
+firebase-debug.log
+ui-debug.log

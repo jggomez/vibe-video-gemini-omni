@@ -1,0 +1,13 @@
+.venv
+.git
+.gitignore
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+.ruff_cache
+uploads/*
+!uploads/.gitkeep
+node_modules
+.DS_Store

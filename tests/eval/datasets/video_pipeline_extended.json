@@ -1,0 +1,57 @@
+[
+  {
+    "name": "basic_video_generation",
+    "query": "Create a cinematic video of a lone wolf running across a snowy mountain at dusk",
+    "expected_tool_use": [
+      {
+        "tool_name": "generate_video",
+        "tool_input": {}
+      }
+    ],
+    "reference": "The pipeline should call generate_video with a 6-dimension structured prompt."
+  },
+  {
+    "name": "video_edit_preservation",
+    "query": "Change the wolf to a fox but keep everything else the same",
+    "expected_tool_use": [
+      {
+        "tool_name": "edit_video",
+        "tool_input": {}
+      }
+    ],
+    "reference": "The edit_video tool should be called with preservation prefix."
+  },
+  {
+    "name": "critic_evaluates_output",
+    "query": "Generate a short video of a sunset over the ocean",
+    "expected_tool_use": [
+      {
+        "tool_name": "generate_video",
+        "tool_input": {}
+      }
+    ],
+    "reference": "The critic agent should produce a CriticReview with a score."
+  },
+  {
+    "name": "architect_6_dimension_framing",
+    "query": "A futuristic car speeding through a cyberpunk alley",
+    "expected_tool_use": [
+      {
+        "tool_name": "generate_video",
+        "tool_input": {}
+      }
+    ],
+    "reference": "Architect expands input using lighting, motion, location, style, action, and text framing."
+  },
+  {
+    "name": "turn_4_drift_warning",
+    "query": "Now make the car red",
+    "expected_tool_use": [
+      {
+        "tool_name": "edit_video",
+        "tool_input": {}
+      }
+    ],
+    "reference": "On high turns, drift_warning flag is activated by tools and critic."
+  }
+]

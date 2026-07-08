@@ -1,0 +1,41 @@
+# .gcloudignore — controls what gcloud builds submit uploads to Cloud Build
+# This is separate from .dockerignore (which controls the Docker build context)
+# IMPORTANT: .gcloudignore must exclude .venv, caches, and dev artifacts to keep upload small
+
+# Python virtual environment (CRITICAL — this is ~500MB)
+.venv/
+
+# Python caches
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.pyd
+.pytest_cache/
+.ruff_cache/
+
+# Git
+.git/
+.gitignore
+
+# Dev artifacts
+.DS_Store
+.env
+*.log
+
+# Node modules
+node_modules/
+
+# Uploaded user files (not needed in build)
+uploads/*
+!uploads/.gitkeep
+
+# IDE configs
+.gemini/
+.agent/
+
+# Test artifacts
+tests/
+
+# Local lock files that should be rebuilt in the container
+# (uv.lock IS needed — keep it for reproducible builds)
