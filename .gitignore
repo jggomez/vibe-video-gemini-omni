@@ -40,13 +40,14 @@ uploads/*
 .agent/
 skills-lock.json
 
-# ADK Skills / Agents Directories
-.agents/skills/gemini-omni-prompt-architect/
-.agents/skills/gemini-omni-flash/
-.agents/skills/vibe-video-prompt-engineering/
-.agents/agents/
-# Ignore entire local .agents dir except structures we want to preserve
+# ADK Skills — ignore everything inside .agents/ by default
 .agents/*
+# Except: the 3 skills actually used by the ADK agents
+!.agents/skills/
+.agents/skills/*
+!.agents/skills/gemini-omni-prompt-architect/
+!.agents/skills/gemini-omni-flash/
+!.agents/skills/vibe-video-prompt-engineering/
 
 # Firebase
 .firebase/

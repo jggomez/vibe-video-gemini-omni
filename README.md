@@ -71,44 +71,32 @@ The generation pipeline follows a nested, multi-stage agent loop structure desig
 
 ```mermaid
 flowchart LR
-    %% Nodes
-    Start([User Request])
-    Director["1. Creative Director<br><i>(Visual Concept)</i>"]
-    Architect["2. Prompt Architect<br><i>(6-Dim Prompt)</i>"]
-    Producer["3. Video Producer<br><i>(Gemini Omni Flash)</i>"]
-    Critic["4. Quality Critic<br><i>(Quality QA)</i>"]
-    Done([Turn Complete])
+    Start([" 🎬 User Request "])
+    Director["1️⃣ Creative Director\n(Visual Concept)"]
+    Architect["2️⃣ Prompt Architect\n(6-Dim Prompt)"]
+    Producer["3️⃣ Video Producer\n(Gemini Omni Flash)"]
+    Critic["4️⃣ Quality Critic\n(Quality QA)"]
+    Done([" ✅ Turn Complete "])
 
-    %% Flow Connections
     Start --> Director
-    
-    subgraph InnerLoop ["Prompt Alignment Loop (max 3 runs)"]
+
+    subgraph InnerLoop ["🔄 Prompt Alignment Loop  ·  max 3 runs"]
         Director --> Architect
         Architect -->|Feedback| Director
     end
 
     Architect -->|Approved Prompt| Producer
     Producer --> Critic
-    
-    Critic -->|Approved Video| Done
+    Critic -->|Approved| Done
     Critic -.->|Needs Refinement| Director
 
-    %% Styles via classDef (GitHub Compatible)
-    classDef startNode fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:2px;
-    classDef doneNode fill:#238636,stroke:#2ea44f,color:#ffffff,stroke-width:2px;
-    classDef dirNode fill:#9e6a00,stroke:#d29922,color:#ffffff !important,stroke-width:1.5px;
-    classDef archNode fill:#0d47a1,stroke:#58a6ff,color:#ffffff !important,stroke-width:1.5px;
-    classDef prodNode fill:#4a148c,stroke:#bc8cff,color:#ffffff !important,stroke-width:1.5px;
-    classDef criticNode fill:#00695c,stroke:#34d399,color:#ffffff !important,stroke-width:1.5px;
-    classDef inner fill:#0f141c,stroke:#30363d,stroke-width:1px,stroke-dasharray: 4 4;
-
-    class Start startNode;
-    class Done doneNode;
-    class Director dirNode;
-    class Architect archNode;
-    class Producer prodNode;
-    class Critic criticNode;
-    class InnerLoop inner;
+    style Start      fill:#dbeafe,stroke:#3b82f6,color:#1e3a5f,font-weight:bold
+    style Done       fill:#dcfce7,stroke:#22c55e,color:#14532d,font-weight:bold
+    style Director   fill:#fef9c3,stroke:#eab308,color:#713f12,font-weight:bold
+    style Architect  fill:#e0e7ff,stroke:#6366f1,color:#312e81,font-weight:bold
+    style Producer   fill:#fae8ff,stroke:#a855f7,color:#4a044e,font-weight:bold
+    style Critic     fill:#ccfbf1,stroke:#14b8a6,color:#134e4a,font-weight:bold
+    style InnerLoop  fill:#f8fafc,stroke:#94a3b8,color:#334155,stroke-dasharray:5 5
 ```
 
 ### 1. Creative Director Agent (`creative_director`)
