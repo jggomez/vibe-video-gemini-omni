@@ -93,15 +93,22 @@ flowchart LR
     Critic -->|Approved Video| Done
     Critic -.->|Needs Refinement| Director
 
-    %% Design Themes (High Contrast for GitHub Light/Dark)
-    style Start fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:2px
-    style Done fill:#238636,stroke:#2ea44f,color:#ffffff,stroke-width:2px
-    style Director fill:#9e6a00,stroke:#d29922,color:#ffffff,stroke-width:1.5px
-    style Architect fill:#0d47a1,stroke:#58a6ff,color:#ffffff,stroke-width:1.5px
-    style Producer fill:#4a148c,stroke:#bc8cff,color:#ffffff,stroke-width:1.5px
-    style Critic fill:#00695c,stroke:#34d399,color:#ffffff,stroke-width:1.5px
-    
-    style InnerLoop fill:#0f141c,stroke:#30363d,stroke-width:1px,stroke-dasharray: 4 4
+    %% Styles via classDef (GitHub Compatible)
+    classDef startNode fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:2px;
+    classDef doneNode fill:#238636,stroke:#2ea44f,color:#ffffff,stroke-width:2px;
+    classDef dirNode fill:#9e6a00,stroke:#d29922,color:#ffffff !important,stroke-width:1.5px;
+    classDef archNode fill:#0d47a1,stroke:#58a6ff,color:#ffffff !important,stroke-width:1.5px;
+    classDef prodNode fill:#4a148c,stroke:#bc8cff,color:#ffffff !important,stroke-width:1.5px;
+    classDef criticNode fill:#00695c,stroke:#34d399,color:#ffffff !important,stroke-width:1.5px;
+    classDef inner fill:#0f141c,stroke:#30363d,stroke-width:1px,stroke-dasharray: 4 4;
+
+    class Start startNode;
+    class Done doneNode;
+    class Director dirNode;
+    class Architect archNode;
+    class Producer prodNode;
+    class Critic criticNode;
+    class InnerLoop inner;
 ```
 
 ### 1. Creative Director Agent (`creative_director`)
