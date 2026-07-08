@@ -2,7 +2,19 @@
 
 **Gemini Omni Vibe Video Studio** is an advanced, production-grade generative video platform built on top of the **Google Agent Development Kit (ADK)** and powered by the **Gemini Omni Flash** (`gemini-omni-flash-preview`) model via the **Interactions API**.
 
+![Vibe Video Studio Screenshot](video_images/img1.png)
+
 It features an autonomous 4-agent pipeline operating in a nested iterative loop pattern: an inner **Prompt Alignment Loop** between the **Creative Director** and **Prompt Architect**, followed by the **Video Producer**, and finished by the outer **Quality Critic** evaluation loop. This pipeline establishes artistic concepts, optimizes cinematic prompts using a 6-dimension framework, handles stateful conversational video editing across multiple turns, and performs automated quality assurance.
+
+---
+
+## Cinematic Video Examples
+
+Below is an example of a cinematic video generated dynamically by the 4-agent pipeline using the `gemini-omni-flash-preview` model:
+
+https://github.com/jggomez/vibe-video-gemini-omni/assets/video1.mp4
+
+*(Note: If viewing on GitHub, you can view the video file directly at [video_images/video1.mp4](video_images/video1.mp4))*
 
 ---
 
