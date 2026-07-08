@@ -69,38 +69,48 @@ flowchart TD
 
 The generation pipeline follows a nested, multi-stage agent loop structure designed to maximize visual quality and prompt fidelity:
 
-```
-[User Request]
-      │
-      ▼
-┌─────────────────────────────────────────────────────────┐
-│  Prompt Alignment Loop (Inner Loop, Max 3 Iterations)   │
-│                                                         │
-│   1. Creative Director establishes visual concept       │
-│      (or reviews optimized_prompt in later turns)       │
-│                           │                             │
-│                           ▼                             │
-│   2. Prompt Architect creates/refines optimized_prompt  │
-│                                                         │
-│   Does Director approve? ───[YES (or 3 loops)]───┐      │
-└──────────────────────────────────────────────────│──────┘
-                                                   │
-                                                   ▼
-                                         3. Video Producer
-                                            (Gemini Omni Flash)
-                                                   │
-                                                   ▼
-┌──────────────────────────────────────────────────│──────┐
-│  Quality Critic Loop (Outer Loop, Max 3 Turns)   │      │
-│                                                         │
-│   4. Critic evaluates video quality & consistency       │
-│                                                         │
-│   Does Critic approve? ───[NO (Needs Refinement)]┘      │
-│            │                                            │
-│         [YES]                                           │
-│            ▼                                            │
-│     [Turn Complete]                                     │
-└─────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TD
+    %% Node Definitions
+    Start([User Request])
+    
+    subgraph InnerLoop ["Prompt Alignment Loop (Inner Loop, max 3 runs)"]
+        Director["1. Creative Director\n(Establishes concept / reviews alignment)"]
+        Architect["2. Prompt Architect\n(Drafts/refines optimized prompt)"]
+        VerifyPrompt{"Approved by\nDirector?"}
+        
+        Director --> Architect
+        Architect --> VerifyPrompt
+        VerifyPrompt -- "No (Needs refinement)" --> Director
+    end
+
+    Producer["3. Video Producer\n(Generates video via Interaction API)"]
+    
+    subgraph OuterLoop ["Quality Critic Loop (Outer Loop, max 3 turns)"]
+        Critic["4. Quality Critic\n(Evaluates video quality & intent fidelity)"]
+        VerifyQuality{"Approved by\nCritic?"}
+        
+        Critic --> VerifyQuality
+    end
+
+    Done([Turn Complete])
+
+    %% Transitions
+    Start --> Director
+    VerifyPrompt -- "Yes (or max iterations)" --> Producer
+    Producer --> Critic
+    VerifyQuality -- "No (Needs refinement)" --> InnerLoop
+    VerifyQuality -- "Yes" --> Done
+
+    %% Styles
+    classDef default fill:#0D1117,stroke:#30363d,color:#c9d1d9,stroke-width:1px;
+    classDef highlight fill:#161b22,stroke:#58a6ff,color:#58a6ff,stroke-width:1.5px;
+    classDef loopBorder fill:rgba(255,255,255,0.01),stroke:#30363d,stroke-width:1px,stroke-dasharray: 5 5;
+    classDef terminal fill:#1f6feb,stroke:#58a6ff,color:#ffffff,stroke-width:1.5px;
+    
+    class InnerLoop,OuterLoop loopBorder;
+    class Director,Architect,Producer,Critic highlight;
+    class Start,Done terminal;
 ```
 
 ### 1. Creative Director Agent (`creative_director`)
