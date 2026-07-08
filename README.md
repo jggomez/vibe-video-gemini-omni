@@ -58,9 +58,9 @@ flowchart TD
         Critic -->|"Needs Refinement (critic_review)"| InnerLoop
     end
 
-    WS_Endpoint <-->|Runner.run_async| Pipeline
-    Producer <-->|Interactions API\n(model: gemini-omni-flash-preview)| GeminiAPI["Gemini Omni API"]
-    Producer -->|Binary Storage| ArtifactStore
+    WS_Endpoint <-->|"Runner.run_async"| Pipeline
+    Producer <-->|"Interactions API (model: gemini-omni-flash-preview)"| GeminiAPI["Gemini Omni API"]
+    Producer -->|"Binary Storage"| ArtifactStore
 ```
 
 ---
